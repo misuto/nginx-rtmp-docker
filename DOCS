@@ -1,0 +1,13 @@
+Timegen: echo $(($(date +%s)+3600))
+
+PreHash string: echo -n "<key><app>/<stream>$(echo $(($(date +%s)+3600)))"
+
+Hash string: echo -n "<key><app>/<stream>$(echo $(($(date +%s)+3600)))" | openssl dgst -md5 -binary | openssl enc -base64 | tr '+/' '-_' | tr -d '='
+
+#!/bin/bash
+DATE=$1
+KEY=$2
+APP=$3
+STREAM=$4
+
+echo 

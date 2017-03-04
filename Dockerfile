@@ -6,7 +6,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.1.9
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev && \
+    apt-get install -y ca-certificates openssl libssl-dev libav-tools libavcodec-extra && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
@@ -34,6 +34,7 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
         --lock-path=/var/lock/nginx/nginx.lock \
         --http-log-path=/var/log/nginx/access.log \
         --http-client-body-temp-path=/tmp/nginx-client-body \
+        --with-http_secure_link_module \
         --with-http_ssl_module \
         --with-threads \
         --with-ipv6 \
